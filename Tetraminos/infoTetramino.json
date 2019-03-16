@@ -1,0 +1,14 @@
+{
+  "type": "",
+  "desplazaminetoHorizontal":{
+    "direccion": ,
+    "cantidad":
+  },
+  "desplazaminetoVertical":,
+  "giro":{
+    "direccion": ,
+    "cantidad":
+  },
+  "tetramino":,
+  "position-in-board":
+}
