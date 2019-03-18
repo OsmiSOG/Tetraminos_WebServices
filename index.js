@@ -19,7 +19,7 @@ app.get('/displace/:direction', (req, res) => {
   } else {
     res.send({ message: 'Error' })
   }
-})
+})0
 
 app.get('/decline', (req, res) => {
   res.send({ message: '-1' })
