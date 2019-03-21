@@ -4,9 +4,15 @@ class SquareTetramino
 
   }
   turn(){
-    
+
   }
   decline(){
 
+  }
+  moveRigth(){
+
+  }
+  moveLeft(){
+    
   }
 }
