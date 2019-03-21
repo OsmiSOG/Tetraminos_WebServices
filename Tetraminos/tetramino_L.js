@@ -56,7 +56,14 @@ import Tetramino from "./Tetramino"
 
     }
 
-    /** este metodo se encarga de hacer girar al tetramino L hacia la izquierda
+      /**este metodo se encarga de hacer girar al tetramino L hacia la izquierda
+       * [turnLeft description]
+       * @return {[type]} [description]
+       */
+     turnLeft(){
+
+     }
+    /** este metodo se encarga de revizar el ultimo estado del tetramino
      * [lastState description]
      * @return {[type]} [description]
      */
