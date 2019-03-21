@@ -4,7 +4,7 @@ import Tetramino from "./Tetramino"
    */
   class TetraminoL {
 
-      let  tablero[][];
+    let tablero
 
     /**
      * este es el constructor de la clase tetramino l

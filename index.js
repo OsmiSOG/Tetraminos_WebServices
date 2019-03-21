@@ -7,11 +7,19 @@ const port = 3000
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.get('/turn/:direction', (req, res) => {
-  res.send({ message: 'hola' })
+/**
+ * [message description]
+ * @type {String}
+ */
+app.get('/turn/:direction/:values_left/:values_right', (req, res) => {
+  res.send({ message: `hola ${req.params.direction} ${req.params.x1}` })
 })
 
-app.get('/displace/:direction', (req, res) => {
+/**
+ * [direction description]
+ * @type {[type]}
+ */
+app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
   if (req.params.direction === 'derecha') {
     res.send({ message: 'derecha' })
   } else if (req.params.direction === 'izquierda') {
@@ -21,10 +29,21 @@ app.get('/displace/:direction', (req, res) => {
   }
 })
 
-app.get('/decline', (req, res) => {
+/**
+ * [message description]
+ * @param {String} req
+ * @param {json} res
+ * @type {String}
+ * @return {json} res
+ */
+app.get('/decline/:values_down', (req, res) => {
   res.send({ message: '-1' })
 })
 
+/**
+ * [message description]
+ * @type {String}
+ */
 app.get('/newTetramino', (req, res) => {
   res.send({ message: 'nuevo tetramino' })
 })
