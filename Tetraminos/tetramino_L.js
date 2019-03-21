@@ -1,3 +1,8 @@
-// Clase tetramino l
-var
-function()
+class TetraminoL {
+  constructor() {
+
+  }
+
+
+  
+}
