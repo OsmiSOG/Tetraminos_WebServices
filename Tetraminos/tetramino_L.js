@@ -7,6 +7,7 @@
       let  tablero[][];
 
     /**
+     * este es el constructor de la clase tetramino l
      * [constructor description]
      */
       constructor() {
@@ -15,6 +16,7 @@
 
 
     /**
+     * este es el metodo que se encarga de darle inicio al tetramino
      * [startTetamine description]
      * @return {[type]} [description]
      */
@@ -22,7 +24,7 @@
 
     }
 
-    /**
+    /**este metodo se encarga del movimiento hacia la derecha del tetramino L
      * [moveRight description]
      * @return {[type]} [description]
      */
@@ -30,7 +32,7 @@
 
     }
 
-    /**
+    /** Este metodo se encarga del movimiento hacia la izquierda del tetramino L
      * [moveLeft description]
      * @return {[type]} [description]
      */
@@ -38,7 +40,7 @@
 
     }
 
-    /**
+    /** Este metodo se encarga de hacer caer o bajar al tetramino
      * [decline description]
      * @return {[type]} [description]
      */
@@ -46,7 +48,7 @@
 
     }
 
-    /**
+    /** este metodo se encarga de hacer girar al tetramino L hacia la derecha
      * [turnRight description]
      * @return {[type]} [description]
      */
@@ -54,7 +56,7 @@
 
     }
 
-    /**
+    /** este metodo se encarga de hacer girar al tetramino L hacia la izquierda
      * [lastState description]
      * @return {[type]} [description]
      */
