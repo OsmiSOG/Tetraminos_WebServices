@@ -31,3 +31,7 @@ class Tetramino {
 
   }
 }
+/**
+ * exportar la clase
+ */
+export default Tetramino;
