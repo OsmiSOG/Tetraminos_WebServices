@@ -4,6 +4,10 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
+const TetraminoL = require('./Tetraminos/tetramino_L.js')
+// const SquareTetramino = require('./Tetraminos/square_tetramino.js')
+// const apiSquareTetramino = new SquareTetramino()
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -49,5 +53,6 @@ app.get('/newTetramino', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Servidor creado con node js + express ${port}`)
+  let apiTetraminoL = new TetraminoL()
+  console.log(`Servidor creado con node js + express ${port} ${apiTetraminoL.infoTetraminoL}`)
 })

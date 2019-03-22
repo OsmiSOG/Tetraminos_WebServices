@@ -1,19 +1,41 @@
-class SquareTetramino
-{
-  startTetramino(){
+const Tetramino = require('tetramino.js')
 
+module.exports = class SquareTetramino extends Tetramino {
+  /**
+   * [constructor description]
+   */
+  constructor () {
+    super()
+    this.infoSquareTetramino = require('square_tetramino.json')
   }
-  turn(){
 
-  }
-  decline(){
+  /**
+   * [startTetramino description]
+   * @return {[type]} [description]
+   */
+  startTetramino () {}
 
-  }
-  moveRigth(){
+  /**
+   * [turn description]
+   * @return {[type]} [description]
+   */
+  turn () {}
 
-  }
-  moveLeft(){
-    
-  }
+  /**
+   * [decline description]
+   * @return {[type]} [description]
+   */
+  decline () {}
+
+  /**
+   * [moveRigth description]
+   * @return {[type]} [description]
+   */
+  moveRigth () {}
+
+  /**
+   * [moveLeft description]
+   * @return {[type]} [description]
+   */
+  moveLeft () {}
 }
-
