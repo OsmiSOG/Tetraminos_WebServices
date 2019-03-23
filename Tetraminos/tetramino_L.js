@@ -1,15 +1,14 @@
-// import Tetramino from 'tetramino.js'
-// let Tetramino = require('./tetramino')
+const Tetramino = require('./tetramino.js')
 /**
 * [TetraminoL description]
 */
-module.exports = class TetraminoL {
+module.exports = class TetraminoL extends Tetramino {
 /**
  * este es el constructor de la clase tetramino l
  * [constructor description]
  */
   constructor () {
-    // super()
+    super()
     this.infoTetraminoL = 'tetraminoL.json'
   }
 
