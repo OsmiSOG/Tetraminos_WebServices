@@ -1,25 +1,26 @@
-
-/** esta es la clase Tetramino
+/**
+ * esta es la clase Tetramino
  * [Tetramino description]
  */
-class Tetramino {
-
-  let tablero;
-  constructor() {
-
+module.exports = class Tetramino {
+  /**
+   * [constructor description]
+   */
+  constructor () {
+    this.infoTetramino = 'info-tetramino.json'
   }
   /** este metodo se encarga de mover una figura de tetramino hacia la derecha
    * [moveRight description]
    * @return {[type]} [description]
    */
-  moveRight(){
+  moveRight () {
 
   }
-  /**este metodo se encarga de mover una figura de tetramino hacia la izquierda
-   * [moveLeft description]
+  /**
+   * este metodo se encarga de mover una figura de tetramino hacia la izquierda
    * @return {[type]} [description]
    */
-  moveLeft(){
+  moveLeft () {
 
   }
   /**
@@ -27,11 +28,7 @@ class Tetramino {
    * [decline description]
    * @return {[type]} [description]
    */
-  decline(){
+  decline () {
 
   }
 }
-/**
- * exportar la clase
- */
-export default Tetramino;
