@@ -4,8 +4,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
-const TetraminoL = require('./Tetraminos/tetramino_L.js')
-const SquareTetramino = require('./Tetraminos/square_tetramino.js')
+const TetraminoL = require('./Tetraminos/tetramino-L.js')
+const SquareTetramino = require('./Tetraminos/square-tetramino.js')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

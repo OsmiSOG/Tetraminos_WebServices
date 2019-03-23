@@ -7,7 +7,7 @@ module.exports = class Tetramino {
    * [constructor description]
    */
   constructor () {
-    this.infoTetramino = 'info_tetramino.json'
+    this.infoTetramino = 'info-tetramino.json'
   }
   /** este metodo se encarga de mover una figura de tetramino hacia la derecha
    * [moveRight description]

@@ -9,7 +9,7 @@ module.exports = class TetraminoL extends Tetramino {
  */
   constructor () {
     super()
-    this.infoTetraminoL = 'tetraminoL.json'
+    this.infoTetraminoL = 'tetramino-L.json'
   }
 
   /**
