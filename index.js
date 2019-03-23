@@ -5,8 +5,7 @@ const app = express()
 const port = 3000
 
 const TetraminoL = require('./Tetraminos/tetramino_L.js')
-// const SquareTetramino = require('./Tetraminos/square_tetramino.js')
-// const apiSquareTetramino = new SquareTetramino()
+const SquareTetramino = require('./Tetraminos/square_tetramino.js')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -54,5 +53,6 @@ app.get('/newTetramino', (req, res) => {
 
 app.listen(port, () => {
   let apiTetraminoL = new TetraminoL()
-  console.log(`Servidor creado con node js + express ${port} ${apiTetraminoL.infoTetraminoL}`)
+  let apiSquareTetramino = new SquareTetramino()
+  console.log(`Servidor creado con node js + express ${port} ${apiTetraminoL.infoTetraminoL} ${apiSquareTetramino.infoSquareTetramino}`)
 })
