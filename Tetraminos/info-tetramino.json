@@ -1,22 +1,22 @@
 {
   "type": "null",
-  "board-info":{
+  "tetramino":[],
+  "board-info": {
     "width": 10,
-    "hight": 20,
+    "hight": 20
   },
-  "move":{
+  "move": {
     "down": false,
     "right": false,
     "left": false
   },
-  "turn":{
+  "turn": {
     "left": false,
     "right": false
   },
-  "tetramino":,
-  "position-in-board":{
-    "values-to-zero":{},
-    "values-to-one":{}
+  "tetramino-state": [],
+  "position-in-board": {
+    "values-to-zero": {},
+    "values-to-one": {}
   }
-
 }
