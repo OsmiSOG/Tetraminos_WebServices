@@ -4,11 +4,24 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 const TetraminoL = require('./Tetraminos/tetramino-L.js')
 const SquareTetramino = require('./Tetraminos/square-tetramino.js')
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+const apiTetraminoL = new TetraminoL()
+const apiSquareTetramino = new SquareTetramino()
+
+/**
+* [apiTetraminoL description]
+* @type {TetraminoL}
+*/
+app.listen(port, () => {
+  console.log(`Servidor creado con node js + express ${port}
+    funcionando ${apiTetraminoL.infoTetraminoL}
+    funcionando ${apiSquareTetramino.infoSquareTetramino}`)
+})
 
 /**
  * [message description]
@@ -48,11 +61,14 @@ app.get('/decline/:values_down', (req, res) => {
  * @type {String}
  */
 app.get('/newTetramino', (req, res) => {
+  let tetramino = Math.floor(Math.random() * (2 - 0)) + 0
+  switch (tetramino) {
+    case 0:
+      res.send(apiTetraminoL.startTetramino())
+      break
+    case 1:
+      apiSquareTetramino.startTetamino()
+      break
+  }
   res.send({ message: 'nuevo tetramino' })
-})
-
-app.listen(port, () => {
-  let apiTetraminoL = new TetraminoL()
-  let apiSquareTetramino = new SquareTetramino()
-  console.log(`Servidor creado con node js + express ${port} ${apiTetraminoL.infoTetraminoL} ${apiSquareTetramino.infoSquareTetramino}`)
 })
