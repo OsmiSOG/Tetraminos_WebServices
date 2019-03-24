@@ -62,13 +62,13 @@ app.get('/decline/:values_down', (req, res) => {
  */
 app.get('/newTetramino', (req, res) => {
   let tetramino = Math.floor(Math.random() * (2 - 0)) + 0
+  res.send({ message: 'nuevo tetramino' })
   switch (tetramino) {
     case 0:
       res.send(apiTetraminoL.startTetramino())
       break
     case 1:
-      apiSquareTetramino.startTetamino()
+      res.send(apiSquareTetramino.startTetamino())
       break
   }
-  res.send({ message: 'nuevo tetramino' })
 })
