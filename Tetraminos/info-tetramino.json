@@ -16,7 +16,37 @@
   },
   "tetramino-state": [],
   "position-in-board": {
-    "values-to-zero": {},
-    "values-to-one": {}
+    "values-to-zero": {
+      "position-one": null,
+      "position-two": null,
+      "position-three": null,
+      "position-four": null
+    },
+    "values-to-one": {
+        "position-one": null,
+        "position-two": null,
+        "position-three": null,
+        "position-four": null
+    }
+  },
+  "tetramino-periphery-positions":{
+    "down":{
+      "position-one": null,
+      "position-two": null,
+      "position-three": null,
+      "position-four": null
+    },
+    "left":{
+      "position-one": null,
+      "position-two": null,
+      "position-three": null,
+      "position-four": null
+    },
+    "right":{
+      "position-one": null,
+      "position-two": null,
+      "position-three": null,
+      "position-four": null
+    }
   }
 }
