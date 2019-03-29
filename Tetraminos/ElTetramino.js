@@ -1,4 +1,4 @@
-const Tetramino = require('./tetramino.js')
+const Tetramino = require('./Tetramino.js')
 /**
 * [TetraminoL description]
 */
@@ -9,7 +9,7 @@ module.exports = class TetraminoL extends Tetramino {
  */
   constructor () {
     super()
-    this.infoTetraminoL = 'tetramino-L.json'
+    this.infoTetraminoL = require('../Config/el-tetramino.json')
   }
 
   /**
@@ -17,14 +17,29 @@ module.exports = class TetraminoL extends Tetramino {
    * [startTetamine description]
    * @return {[type]} [description]
    */
-  startTetramino () {}
+  startTetramino () {
+    this.infoTetramino['type'] = this.infoTetraminoL['name']
+    this.infoTetramino['tetramino'] = this.infoTetraminoL['1']['tetramino']
+    this.infoTetramino['tetramino-state'] = this.infoTetraminoL['1']['tetramino']
+    this.infoTetraminoL['current-movement'] = '1'
+    this.infoTetramino['position-in-board']['values-to-zero'] = null
+    this.infoTetramino['position-in-board']['values-to-one'] = { 'position-one': null, 'position-two': null, 'position-three': [4, 0], 'position-four': [5, 0] }
+  }
 
   /**
    * este metodo se encarga del movimiento hacia la derecha del tetramino L
    * [moveRight description]
    * @return {[type]} [description]
    */
-  moveRight () {}
+  moveRight (positionRigth) {
+    if (this.infoTetraminoL['current-movement'] === 1) {
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 10) {
+        this.infoTetramino['move']['right'] = false
+      } else if (positionRigth[0] === 0 && positionRigth[1] === 0 && positionRigth[2] === 0) {
+
+      }
+    }
+  }
 
   /**
    * Este metodo se encarga del movimiento hacia la izquierda del tetramino L
