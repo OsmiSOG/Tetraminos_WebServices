@@ -7,8 +7,8 @@ const port = 3000
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const TetraminoL = require('./Tetraminos/tetramino-L.js')
-const SquareTetramino = require('./Tetraminos/square-tetramino.js')
+const TetraminoL = require('../Tetraminos/ElTetramino.js')
+const SquareTetramino = require('../Tetraminos/SquareTetramino.js')
 
 const apiTetraminoL = new TetraminoL()
 const apiSquareTetramino = new SquareTetramino()

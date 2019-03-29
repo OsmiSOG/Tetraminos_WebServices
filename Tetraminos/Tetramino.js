@@ -7,7 +7,7 @@ module.exports = class Tetramino {
    * [constructor description]
    */
   constructor () {
-    this.infoTetramino = require('./info-tetramino.json')
+    this.infoTetramino = require('../App/info-tetramino.json')
   }
 
   startTetamino () {

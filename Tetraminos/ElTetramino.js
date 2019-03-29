@@ -1,4 +1,4 @@
-const Tetramino = require('./tetramino.js')
+const Tetramino = require('./Tetramino.js')
 /**
 * [TetraminoL description]
 */
@@ -9,7 +9,7 @@ module.exports = class TetraminoL extends Tetramino {
  */
   constructor () {
     super()
-    this.infoTetraminoL = require('./tetramino-L.json')
+    this.infoTetraminoL = require('../Config/el-tetramino.json')
   }
 
   /**
