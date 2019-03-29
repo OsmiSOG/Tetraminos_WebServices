@@ -6,20 +6,23 @@ module.exports = class SquareTetramino extends Tetramino {
    */
   constructor () {
     super()
-    this.infoSquareTetramino = 'square-tetramino.json'
+    this.infoSquareTetramino = require('./square-tetramino.json')
   }
 
   /**
    * [startTetramino description]
    * @return {[type]} [description]
    */
-  startTetramino () {}
+  startTetramino () {
+  }
 
   /**
    * [turn description]
    * @return {[type]} [description]
    */
-  turn () {}
+  turn () {
+
+  }
 
   /**
    * [decline description]
