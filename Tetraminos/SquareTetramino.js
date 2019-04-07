@@ -6,7 +6,6 @@ module.exports = class SquareTetramino extends Tetramino {
    */
   constructor () {
     super()
-    this.infoTetramino = require('../App/info-tetramino.json')
     this.infoSquareTetramino = require('../Config/square-tetramino.json')
   }
 
