@@ -48,7 +48,7 @@ app.get('/turn/:direction/:values_left/:values_right', (req, res) => {
       res.send(apiSquareTetramino.turn())
     }
   } else {
-    res.status(500).send({ error: 'Tetramino no iniciailizado' })
+    res.status(500).send({ error: 'uninitialized tetramine' })
   }
 })
 
@@ -76,7 +76,7 @@ app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
       }
     }
   } else {
-    res.status(500).send({ error: 'Tetramino no iniciailizado' })
+    res.status(500).send({ error: 'uninitialized tetramine' })
   }
 })
 
@@ -89,9 +89,17 @@ app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
  */
 app.get('/decline/:values_down', (req, res) => {
   if (req.session.apiInfoTetramino) {
-    res.send({ message: '-1' })
+    if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
+      apiTetraminoL.infoTetramino = req.session.apiInfoTetramino
+      apiTetraminoL.infoTetraminoL = req.session.apiInfoTetraminoL
+      res.send(apiTetraminoL.decline())
+    } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
+      apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
+      apiSquareTetramino.infoTetraminoL = req.session.apiInfoSquareTetramino
+      res.send(apiSquareTetramino.decline())
+    }
   } else {
-    res.status(500).send({ error: 'Tetramino no inicializado' })
+    res.status(500).send({ error: 'uninitialized tetramine' })
   }
 })
 
