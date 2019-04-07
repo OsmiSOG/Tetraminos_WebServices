@@ -24,6 +24,7 @@ module.exports = class TetraminoL extends Tetramino {
     this.infoTetraminoL['current-movement'] = '1'
     this.infoTetramino['position-in-board']['values-to-zero'] = null
     this.infoTetramino['position-in-board']['values-to-one'] = { 'position-one': null, 'position-two': null, 'position-three': [4, 0], 'position-four': [5, 0] }
+    return this.infoTetramino
   }
 
   /**
@@ -67,7 +68,9 @@ module.exports = class TetraminoL extends Tetramino {
    * [turnLeft description]
    * @return {[type]} [description]
    */
-  turnLeft () {}
+  turnLeft () {
+    return this.infoTetramino
+  }
 
   /**
    * este metodo se encarga de revizar el ultimo estado del tetramino

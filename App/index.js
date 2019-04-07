@@ -1,14 +1,19 @@
 const express = require('express')
+const session = require('express-session')
 const bodyParser = require('body-parser')
+const TetraminoL = require('../Tetraminos/ElTetramino.js')
+const SquareTetramino = require('../Tetraminos/SquareTetramino.js')
 
 const app = express()
 const port = 3000
 
+app.use(session({
+  secret: 'Es secreto',
+  resave: true,
+  saveUninitialized: true
+}))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
-const TetraminoL = require('../Tetraminos/ElTetramino.js')
-const SquareTetramino = require('../Tetraminos/SquareTetramino.js')
 
 const apiTetraminoL = new TetraminoL()
 const apiSquareTetramino = new SquareTetramino()
@@ -28,7 +33,23 @@ app.listen(port, () => {
  * @type {String}
  */
 app.get('/turn/:direction/:values_left/:values_right', (req, res) => {
-  res.send({ message: `hola ${req.params.direction} ${req.params.x1}` })
+  if (req.session.apiInfoTetramino) {
+    if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
+      apiTetraminoL.infoTetramino = req.session.apiInfoTetramino
+      apiTetraminoL.infoTetraminoL = req.session.apiInfoTetraminoL
+      if (req.params.direction === 'right') {
+        res.send(apiTetraminoL.turnRight())
+      } else if (req.params.direction === 'left') {
+        res.send(apiTetraminoL.turnLeft())
+      }
+    } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
+      apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
+      apiSquareTetramino.infoTetraminoL = req.session.apiInfoSquareTetramino
+      res.send(apiSquareTetramino.turn())
+    }
+  } else {
+    res.status(500).send({ error: 'Tetramino no iniciailizado' })
+  }
 })
 
 /**
@@ -36,12 +57,26 @@ app.get('/turn/:direction/:values_left/:values_right', (req, res) => {
  * @type {[type]}
  */
 app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
-  if (req.params.direction === 'derecha') {
-    res.send({ message: 'derecha' })
-  } else if (req.params.direction === 'izquierda') {
-    res.send({ message: 'izquierda' })
+  if (req.session.apiInfoTetramino) {
+    if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
+      apiTetraminoL.infoTetramino = req.session.apiInfoTetramino
+      apiTetraminoL.infoTetraminoL = req.session.apiInfoTetraminoL
+      if (req.params.direction === 'right') {
+        res.send(apiTetraminoL.moveRight())
+      } else if (req.params.direction === 'left') {
+        res.send(apiTetraminoL.moveLeft())
+      }
+    } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
+      apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
+      apiSquareTetramino.infoTetraminoL = req.session.apiInfoSquareTetramino
+      if (req.params.direction === 'right') {
+        res.send(apiSquareTetramino.moveRight())
+      } else if (req.params.direction === 'left') {
+        res.send(apiSquareTetramino.moveLeft())
+      }
+    }
   } else {
-    res.send({ message: 'Error' })
+    res.status(500).send({ error: 'Tetramino no iniciailizado' })
   }
 })
 
@@ -53,7 +88,11 @@ app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
  * @return {json} res
  */
 app.get('/decline/:values_down', (req, res) => {
-  res.send({ message: '-1' })
+  if (req.session.apiInfoTetramino) {
+    res.send({ message: '-1' })
+  } else {
+    res.status(500).send({ error: 'Tetramino no inicializado' })
+  }
 })
 
 /**
@@ -62,13 +101,19 @@ app.get('/decline/:values_down', (req, res) => {
  */
 app.get('/newTetramino', (req, res) => {
   let tetramino = Math.floor(Math.random() * (2 - 0)) + 0
-  res.send({ message: 'nuevo tetramino' })
+  let api
   switch (tetramino) {
     case 0:
-      res.send(apiTetraminoL.startTetramino())
+      api = apiTetraminoL.startTetramino()
+      req.session.apiInfoTetramino = api
+      req.session.apiInfoTetraminoL = apiTetraminoL.infoTetraminoL
+      res.send(api)
       break
     case 1:
-      res.send(apiSquareTetramino.startTetamino())
+      api = apiSquareTetramino.startTetramino()
+      req.session.apiInfoTetramino = api
+      req.session.apiInfoSquareTetramino = apiSquareTetramino.infoSquareTetramino
+      res.send(apiSquareTetramino.startTetramino())
       break
   }
 })
