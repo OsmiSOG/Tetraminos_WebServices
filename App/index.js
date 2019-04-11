@@ -1,7 +1,7 @@
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
-const TetraminoL = require('../Tetraminos/ElTetramino.js')
+const ElTetramino = require('../Tetraminos/ElTetramino.js')
 const SquareTetramino = require('../Tetraminos/SquareTetramino.js')
 
 const app = express()
@@ -15,16 +15,16 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const apiTetraminoL = new TetraminoL()
+const apiElTetramino = new ElTetramino()
 const apiSquareTetramino = new SquareTetramino()
 
 /**
-* [apiTetraminoL description]
+* [apiElTetramino description]
 * @type {TetraminoL}
 */
 app.listen(port, () => {
   console.log(`Servidor creado con node js + express ${port}
-    funcionando ${apiTetraminoL.infoTetraminoL}
+    funcionando ${apiElTetramino.infoTetraminoL}
     funcionando ${apiSquareTetramino.infoSquareTetramino}`)
 })
 
@@ -32,18 +32,18 @@ app.listen(port, () => {
  * [message description]
  * @type {String}
  */
-app.get('/turn/:direction/:values_left/:values_right', (req, res) => {
+app.get('/turn/:direction/:values_turn', (req, res) => {
   if (req.session.apiInfoTetramino) {
     if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
-      apiTetraminoL.infoTetramino = req.session.apiInfoTetramino
-      apiTetraminoL.lastState(req.session.lastStateTetraminoL)
+      apiElTetramino.infoTetramino = req.session.apiInfoTetramino
+      apiElTetramino.lastState(req.session.lastStateTetraminoL)
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiTetraminoL.turnRight()
-        req.session.lastStateTetraminoL = apiTetraminoL.infoTetraminoL['current-movement']
+        req.session.apiInfoTetramino = apiElTetramino.turnRight(req.params.values_turn)
+        req.session.lastStateTetraminoL = apiElTetramino.infoTetraminoL['current-movement']
         res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.infoTetramino = apiTetraminoL.turnLeft()
-        req.session.infoTetraminoL = apiTetraminoL.infoTetraminoL['current-movement']
+        req.session.infoTetramino = apiElTetramino.turnLeft(req.params.values_turn)
+        req.session.infoTetraminoL = apiElTetramino.infoTetraminoL['current-movement']
         res.send(req.session.infoTetramino)
       }
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
@@ -63,22 +63,22 @@ app.get('/turn/:direction/:values_left/:values_right', (req, res) => {
 app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
   if (req.session.apiInfoTetramino) {
     if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
-      apiTetraminoL.infoTetramino = req.session.apiInfoTetramino
-      apiTetraminoL.lastState(req.session.lastStateTetraminoL)
+      apiElTetramino.infoTetramino = req.session.apiInfoTetramino
+      apiElTetramino.lastState(req.session.lastStateTetraminoL)
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiTetraminoL.moveRight()
-        res.send(apiTetraminoL.moveRight())
+        req.session.apiInfoTetramino = apiElTetramino.moveRight(req.params.values_right)
+        res.send(apiElTetramino.moveRight())
       } else if (req.params.direction === 'left') {
-        req.session.apiInfoTetramino = apiTetraminoL.moveLeft()
-        res.send(apiTetraminoL.moveLeft())
+        req.session.apiInfoTetramino = apiElTetramino.moveLeft(req.params.values_left)
+        res.send(apiElTetramino.moveLeft())
       }
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
       apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiSquareTetramino.moveRight()
+        req.session.apiInfoTetramino = apiSquareTetramino.moveRight(req.params.values_right)
         res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.apiInfoTetramino = apiSquareTetramino.moveLeft()
+        req.session.apiInfoTetramino = apiSquareTetramino.moveLeft(req.params.values_left)
         res.send(req.session.apiInfoTetramino)
       }
     }
@@ -98,19 +98,19 @@ app.get('/decline/:values_down', (req, res) => {
   setTimeout((req, res) => {
     if (req.session.apiInfoTetramino) {
       if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
-        apiTetraminoL.infoTetramino = req.session.apiInfoTetramino
-        apiTetraminoL.lastState(req.session.lastStateTetraminoL)
-        req.session.apiInfoTetramino = apiTetraminoL.decline()
+        apiElTetramino.infoTetramino = req.session.apiInfoTetramino
+        apiElTetramino.lastState(req.session.lastStateTetraminoL)
+        req.session.apiInfoTetramino = apiElTetramino.decline(req.params.values_down)
         res.send(req.session.apiInfoTetramino)
       } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
         apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
-        req.session.apiInfoTetramino = apiSquareTetramino.decline()
+        req.session.apiInfoTetramino = apiSquareTetramino.decline(req.params.values_down)
         res.send(req.session.apiInfoTetramino)
       }
     } else {
       res.status(500).send({ error: 'uninitialized tetramine' })
     }
-  }, 5000)
+  }, 5000, req, res)
 })
 
 /**
@@ -121,8 +121,8 @@ app.get('/newTetramino', (req, res) => {
   let tetramino = Math.floor(Math.random() * (2 - 0)) + 0
   switch (tetramino) {
     case 0:
-      req.session.apiInfoTetramino = apiTetraminoL.startTetramino()
-      req.session.lastStateTetraminoL = apiTetraminoL.infoTetraminoL['current-movement']
+      req.session.apiInfoTetramino = apiElTetramino.startTetramino()
+      req.session.lastStateTetraminoL = apiElTetramino.infoTetraminoL['current-movement']
       res.send(req.session.apiInfoTetramino)
       break
     case 1:

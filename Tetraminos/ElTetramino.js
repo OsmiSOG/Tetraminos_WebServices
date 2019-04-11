@@ -2,7 +2,7 @@ const Tetramino = require('./Tetramino.js')
 /**
 * [TetraminoL description]
 */
-module.exports = class TetraminoL extends Tetramino {
+module.exports = class ElTetramino extends Tetramino {
 /**
  * este es el constructor de la clase tetramino l
  * [constructor description]
@@ -77,5 +77,5 @@ module.exports = class TetraminoL extends Tetramino {
    * [lastState description]
    * @return {[type]} [description]
    */
-  lastState () {}
+  lastState (currentMovement) {}
 }
