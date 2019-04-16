@@ -5,14 +5,14 @@ const ElTetramino = require('../Tetraminos/ElTetramino.js')
 const SquareTetramino = require('../Tetraminos/SquareTetramino.js')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.use(session({
   secret: 'Es secreto',
   resave: true,
   saveUninitialized: true
 }))
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 const apiElTetramino = new ElTetramino()
@@ -65,13 +65,14 @@ app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
     if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
       apiElTetramino.infoTetramino = req.session.apiInfoTetramino
       apiElTetramino.lastState(req.session.lastStateTetraminoL)
+      console.log(req.session.lastStateTetraminoL)
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiElTetramino.moveRight(req.params.values_right)
-        res.send(apiElTetramino.moveRight())
+        req.session.apiInfoTetramino = apiElTetramino.moveRight(Array.from(req.params.values_right.split(',')))
+        res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.apiInfoTetramino = apiElTetramino.moveLeft(req.params.values_left)
-        res.send(apiElTetramino.moveLeft())
-      }
+        req.session.apiInfoTetramino = apiElTetramino.moveLeft(Array.from(req.params.values_left.split(',')))
+        res.send(req.session.apiInfoTetramino)
+      } else { res.status(500).send({ error: 'parameters incorrects' }) }
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
       apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
       if (req.params.direction === 'right') {
@@ -110,9 +111,14 @@ app.get('/decline/:values_down', (req, res) => {
     } else {
       res.status(500).send({ error: 'uninitialized tetramine' })
     }
-  }, 5000, req, res)
+  }, 1000, req, res)
 })
 
+app.get('/prueba/:values', (req, res) => {
+  console.log(req.params.values.split(','))
+  apiElTetramino.lastState(Array.from(req.params.values.split(',')))
+  res.send()
+})
 /**
  * [message description]
  * @type {String}
