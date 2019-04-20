@@ -57,6 +57,23 @@ app.get('/turn/:direction/:values_turn', (req, res) => {
 })
 
 /**
+ * [infoTetramino description]
+ * @type {[type]}
+ */
+app.get('/turn', (req, res) => {
+  if (req.session.apiInfoTetramino) {
+    if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
+      apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
+      req.session.apiInfoTetramino = apiSquareTetramino.turn()
+      res.send(req.session.apiInfoTetramino)
+    } else {
+      res.status(500).send({ error: 'No available for tetramino l' })
+    }
+  } else {
+    res.status(500).send({ error: 'uninitialized tetramine' })
+  }
+})
+/**
  * [direction description]
  * @type {[type]}
  */

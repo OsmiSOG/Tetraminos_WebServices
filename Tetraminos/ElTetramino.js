@@ -359,9 +359,7 @@ module.exports = class ElTetramino extends Tetramino {
    * [turnLeft description]
    * @return {[type]} [description]
    */
-  turnLeft () {
-    return this.infoTetramino
-  }
+  turnLeft () {}
 
   /**
    * este metodo se encarga de revizar el ultimo estado del tetramino
