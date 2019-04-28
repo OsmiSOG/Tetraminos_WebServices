@@ -14,6 +14,8 @@ module.exports = class SquareTetramino extends Tetramino {
    * @return {[type]} [description]
    */
   startTetramino () {
+    this.infoTetramino['type'] = this.infoSquareTetramino['name']
+    return this.infoTetramino
   }
 
   /**
@@ -21,7 +23,9 @@ module.exports = class SquareTetramino extends Tetramino {
    * @return {[type]} [description]
    */
   turn () {
-
+    this.infoTetramino['turn'] = true
+    this.infoTetramino['tetramino-periphery-positions']['turn'] = null
+    return this.infoTetramino
   }
 
   /**

@@ -2,7 +2,7 @@ const Tetramino = require('./Tetramino.js')
 /**
 * [TetraminoL description]
 */
-module.exports = class TetraminoL extends Tetramino {
+module.exports = class ElTetramino extends Tetramino {
 /**
  * este es el constructor de la clase tetramino l
  * [constructor description]
@@ -23,7 +23,16 @@ module.exports = class TetraminoL extends Tetramino {
     this.infoTetramino['tetramino-state'] = this.infoTetraminoL['1']['tetramino']
     this.infoTetraminoL['current-movement'] = '1'
     this.infoTetramino['position-in-board']['values-to-zero'] = null
-    this.infoTetramino['position-in-board']['values-to-one'] = { 'position-one': null, 'position-two': null, 'position-three': [4, 0], 'position-four': [5, 0] }
+    this.infoTetramino['position-in-board']['values-to-one'] = {
+      'position-one': [-3, 4],
+      'position-two': [-2, 4],
+      'position-three': [-1, 4],
+      'position-four': [-1, 5]
+    }
+    this.infoTetramino['tetramino-periphery-positions']['left'] = null
+    this.infoTetramino['tetramino-periphery-positions']['right'] = null
+    this.infoTetramino['tetramino-periphery-positions']['down'] = { 'position-one': [0, 4], 'position-two': [0, 5] }
+    return this.infoTetramino
   }
 
   /**
@@ -31,14 +40,152 @@ module.exports = class TetraminoL extends Tetramino {
    * [moveRight description]
    * @return {[type]} [description]
    */
-  moveRight (positionRigth) {
-    if (this.infoTetraminoL['current-movement'] === 1) {
-      if (this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 10) {
-        this.infoTetramino['move']['right'] = false
-      } else if (positionRigth[0] === 0 && positionRigth[1] === 0 && positionRigth[2] === 0) {
-
+  moveRight (valuesPeripheryRight) {
+    this.infoTetramino['move']['right'] = false
+    this.infoTetramino['move']['left'] = false
+    let zeros = false
+    for (let i = 0; i < valuesPeripheryRight.length; i++) {
+      if (parseInt(valuesPeripheryRight[i]) === 0) {
+        zeros = true
+      } else {
+        zeros = false
+        break
       }
     }
+    console.log(zeros)
+    if (zeros) {
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] === 10 || this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 10) {
+        this.infoTetramino['move']['right'] = false
+      } else {
+        if (this.infoTetraminoL['current-movement'] === '1') {
+          this.infoTetramino['move']['right'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-one'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-two'],
+            'position-three': this.infoTetramino['position-in-board']['values-to-one']['position-three']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-three'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-four'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+        }
+        if (this.infoTetraminoL['current-movement'] === '3') {
+          this.infoTetramino['move']['right'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-one'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-two'],
+            'position-three': this.infoTetramino['position-in-board']['values-to-one']['position-four']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-one'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-four'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-four']['position-four'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1]
+          }
+        }
+      }
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] === 10 || this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 10) {
+        this.infoTetramino['move']['right'] = false
+      } else {
+        if (this.infoTetraminoL['current-movement'] === '2') {
+          this.infoTetramino['move']['right'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-three'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-four']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-one'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-two'][1]],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-four'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+        }
+        if (this.infoTetraminoL['current-movement'] === '4') {
+          this.infoTetramino['move']['right'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-one'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-four']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-one'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-two'][1]],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-three'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+        }
+      }
+    } else {
+      this.infoTetramino['move']['right'] = false
+    }
+    return this.infoTetramino
   }
 
   /**
@@ -46,7 +193,152 @@ module.exports = class TetraminoL extends Tetramino {
    * [moveLeft description]
    * @return {[type]} [description]
    */
-  moveLeft () {}
+  moveLeft (valuesPeripheryLeft) {
+    this.infoTetramino['move']['right'] = false
+    this.infoTetramino['move']['left'] = false
+    let zeros = false
+    for (let i = 0; i < valuesPeripheryLeft.length; i++) {
+      if (parseInt(valuesPeripheryLeft[i]) === 0) {
+        zeros = true
+      } else {
+        zeros = false
+        break
+      }
+    }
+    if (zeros) {
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] === 0 || this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 0) {
+        this.infoTetramino['move']['left'] = false
+      } else {
+        if (this.infoTetraminoL['current-movement'] === '1') {
+          this.infoTetramino['move']['left'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-one'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-two'],
+            'position-three': this.infoTetramino['position-in-board']['values-to-one']['position-four']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-three'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-four'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+        }
+        if (this.infoTetraminoL['current-movement'] === '3') {
+          this.infoTetramino['move']['right'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-one'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-two'],
+            'position-three': this.infoTetramino['position-in-board']['values-to-one']['position-three']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-one'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-four'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-four']['position-four'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1]
+          }
+        }
+      }
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 0 || this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] === 0) {
+        this.infoTetramino['move']['left'] = false
+      } else {
+        if (this.infoTetraminoL['current-movement'] === '2') {
+          this.infoTetramino['move']['left'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-one'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-four']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-one'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-two'][1]],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-four'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+        }
+        if (this.infoTetraminoL['current-movement'] === '4') {
+          this.infoTetramino['move']['right'] = true
+          // values to zero
+          this.infoTetramino['position-in-board']['values-to-zero'] = {
+            'position-one': this.infoTetramino['position-in-board']['values-to-one']['position-three'],
+            'position-two': this.infoTetramino['position-in-board']['values-to-one']['position-four']
+          }
+          // values to one
+          this.infoTetramino['position-in-board']['values-to-one'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0], this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] - 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] - 1],
+            'position-four': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          // position tetramino periphery
+          this.infoTetramino['tetramino-periphery-positions']['down'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-one'][1]],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-two'][1]],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] + 1, this.infoTetramino['position-in-board']['values-to-one']['position-three'][1]]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['left'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-one'][0], this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] - 1],
+            'position-two': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] - 1]
+          }
+          this.infoTetramino['tetramino-periphery-positions']['right'] = {
+            'position-one': [this.infoTetramino['position-in-board']['values-to-one']['position-three'][0], this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] + 1],
+            'position-three': [this.infoTetramino['position-in-board']['values-to-one']['position-four'][0], this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] + 1]
+          }
+        }
+      }
+    } else {
+      this.infoTetramino['move']['left'] = false
+    }
+    return this.infoTetramino
+  }
 
   /**
    * Este metodo se encarga de hacer caer o bajar al tetramino
@@ -74,5 +366,7 @@ module.exports = class TetraminoL extends Tetramino {
    * [lastState description]
    * @return {[type]} [description]
    */
-  lastState () {}
+  lastState (currentMovement) {
+    this.infoTetraminoL['current-movement'] = currentMovement
+  }
 }

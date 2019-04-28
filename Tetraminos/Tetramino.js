@@ -10,7 +10,7 @@ module.exports = class Tetramino {
     this.infoTetramino = require('../App/info-tetramino.json')
   }
 
-  startTetamino () {
+  startTetramino () {
     this.infoTetramino.type = 'Tetramino'
     return this.infoTetramino
   }
