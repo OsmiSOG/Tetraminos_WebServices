@@ -1,21 +1,33 @@
-const Tetramino = require('./Tetramino.js')
 /**
-* [TetraminoL description]
-*/
-module.exports = class ElTetramino extends Tetramino {
-/**
- * este es el constructor de la clase tetramino l
- * [constructor description]
+ * Require paretn class Tetramino in constant
+ * @constant
+ * @requires module:Tetraminos/Tetramino
+ * @type {Tetramino}
  */
+const Tetramino = require('./Tetramino.js')
+
+/**
+ * module to export class SquareTetramino
+ * @module Tetraminos/ElTetramino
+ */
+module.exports =
+/**
+ * functionalities for the tetramino square
+ * @class ElTetramino
+ * @extends Tetramino
+ */
+class ElTetramino extends Tetramino {
+  /**
+   * @constructor
+   */
   constructor () {
     super()
     this.infoTetraminoL = require('../Config/el-tetramino.json')
   }
 
   /**
-   * este es el metodo que se encarga de darle inicio al tetramino
-   * [startTetamine description]
-   * @return {[type]} [description]
+   * start the square tetramino with values for api
+   * @return {json} json with information for api
    */
   startTetramino () {
     this.infoTetramino['type'] = this.infoTetraminoL['name']
@@ -36,9 +48,9 @@ module.exports = class ElTetramino extends Tetramino {
   }
 
   /**
-   * este metodo se encarga del movimiento hacia la derecha del tetramino L
-   * [moveRight description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to move right
+   * @param  {string[]} valuesPeripheryRight values to the left of the tetramine
+   * @return {json} json with information for api
    */
   moveRight (valuesPeripheryRight) {
     this.infoTetramino['move']['right'] = false
@@ -189,9 +201,9 @@ module.exports = class ElTetramino extends Tetramino {
   }
 
   /**
-   * Este metodo se encarga del movimiento hacia la izquierda del tetramino L
-   * [moveLeft description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to move left
+   * @param  {string[]} valuesPeripheryLeft values to the right of the tetramine
+   * @return {json} json with information for api
    */
   moveLeft (valuesPeripheryLeft) {
     this.infoTetramino['move']['right'] = false
@@ -341,30 +353,27 @@ module.exports = class ElTetramino extends Tetramino {
   }
 
   /**
-   * Este metodo se encarga de hacer caer o bajar al tetramino
-   * [decline description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to decline
+   * @return {json} json with information for api
    */
   decline () {}
 
   /**
-   * este metodo se encarga de hacer girar al tetramino L hacia la derecha
-   * [turnRight description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to turn right
+   * @return {json} json with information for api
    */
   turnRight () {}
 
   /**
-   * este metodo se encarga de hacer girar al tetramino L hacia la izquierda
-   * [turnLeft description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to turn left
+   * @return {json} json with information for api
    */
   turnLeft () {}
 
   /**
-   * este metodo se encarga de revizar el ultimo estado del tetramino
-   * [lastState description]
-   * @return {[type]} [description]
+   * modify values for the current movement of tetramino
+   * @param  {string} currentMovement [description]
+   * @return {json} json with information for api
    */
   lastState (currentMovement) {
     this.infoTetraminoL['current-movement'] = currentMovement

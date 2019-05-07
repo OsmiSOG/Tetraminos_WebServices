@@ -1,22 +1,33 @@
 /**
- * esta es la clase Tetramino
- * [Tetramino description]
+ * module with class parent Tetramino
+ * @module Tetraminos/Tetramino
  */
-module.exports = class Tetramino {
+module.exports =
+/**
+ * class template Tetramino
+ * @class
+ */
+class Tetramino {
   /**
-   * [constructor description]
+   * open json file about API information
+   * @constructor
    */
   constructor () {
     this.infoTetramino = require('../App/info-tetramino.json')
   }
 
+  /**
+   * start information for tetramino
+   * @function
+   * @return {json} json with information for api
+   */
   startTetramino () {
     this.infoTetramino.type = 'Tetramino'
     return this.infoTetramino
   }
-  /** este metodo se encarga de mover una figura de tetramino hacia la derecha
-   * [moveRight description]
-   * @return {[type]} [description]
+  /**
+   * move the tetramino to right
+   * @return {json} json with information for api
    */
   moveRight () {
     this.infoTetramino.move.right = true
@@ -24,8 +35,8 @@ module.exports = class Tetramino {
     return this.infoTetramino
   }
   /**
-   * este metodo se encarga de mover una figura de tetramino hacia la izquierda
-   * @return {[type]} [description]
+   * move the tetramino to left
+   * @return {json} json with information for api
    */
   moveLeft () {
     this.infoTetramino.move.left = true
@@ -33,9 +44,8 @@ module.exports = class Tetramino {
     return this.infoTetramino
   }
   /**
-   * este metodo se encarga de hacer bajar o caer una figura tetramino
-   * [decline description]
-   * @return {[type]} [description]
+   * down the tetramino
+   * @return {json} json with information for api
    */
   decline () {
     this.infoTetramino.move.down = true

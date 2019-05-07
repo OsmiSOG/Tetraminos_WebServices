@@ -1,8 +1,24 @@
+/**
+ * Require paretn class Tetramino in constant
+ * @constant
+ * @requires module:Tetraminos/Tetramino
+ * @type {Tetramino}
+ */
 const Tetramino = require('./Tetramino.js')
 
-module.exports = class SquareTetramino extends Tetramino {
+/**
+ * module to export class SquareTetramino
+ * @module Tetraminos/SquareTetramino
+ */
+module.exports =
+/**
+ * functionalities for the tetramino square
+ * @class SquareTetramino
+ * @extends Tetramino
+ */
+class SquareTetramino extends Tetramino {
   /**
-   * [constructor description]
+   * @constructor
    */
   constructor () {
     super()
@@ -10,8 +26,8 @@ module.exports = class SquareTetramino extends Tetramino {
   }
 
   /**
-   * [startTetramino description]
-   * @return {[type]} [description]
+   * start the square tetramino with values for api
+   * @return {json} json with information for api
    */
   startTetramino () {
     this.infoTetramino['type'] = this.infoSquareTetramino['name']
@@ -19,8 +35,8 @@ module.exports = class SquareTetramino extends Tetramino {
   }
 
   /**
-   * [turn description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to turn
+   * @return {json} json with information for api
    */
   turn () {
     this.infoTetramino['turn'] = true
@@ -29,20 +45,20 @@ module.exports = class SquareTetramino extends Tetramino {
   }
 
   /**
-   * [decline description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to decline
+   * @return {json} json with information for api
    */
   decline () {}
 
   /**
-   * [moveRigth description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to move right
+   * @return {json} json with information for api
    */
-  moveRigth () {}
+  moveRight () {}
 
   /**
-   * [moveLeft description]
-   * @return {[type]} [description]
+   * modify values for the new position of tetramino to move left
+   * @return {json} json with information for api
    */
   moveLeft () {}
 }
