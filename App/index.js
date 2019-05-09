@@ -18,6 +18,69 @@ app.use(bodyParser.json())
 const apiElTetramino = new ElTetramino()
 const apiSquareTetramino = new SquareTetramino()
 
+/**
+ * @api {response} / tetramino information
+ * @apiName ExampleResponse
+ * @apiGroup API
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/ 200 OK
+ *     {
+ *        "type": "null",
+ *        "tetramino":[],
+ *        "board-info": {
+ *          "width": 10,
+ *          "hight": 20
+ *        },
+ *        "move": {
+ *          "down": false,
+ *          "right": false,
+ *          "left": false
+ *        },
+ *        "turn": {
+ *          "left": false,
+ *          "right": false
+ *        },
+ *        "tetramino-state": [],
+ *        "position-in-board": {
+ *          "values-to-zero": {
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "values-to-one": {
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          }
+ *        },
+ *        "tetramino-periphery-positions":{
+ *          "down":{
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "left":{
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "right":{
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "turn":{
+ *
+ *          }
+ *        }
+ *      }
+ */
 app.listen(port, () => {
   console.log(`Servidor creado con node js + express ${port}
     funcionando ${apiElTetramino.infoTetraminoL}

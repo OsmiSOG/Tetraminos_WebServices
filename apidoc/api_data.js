@@ -1,5 +1,24 @@
 define({ "api": [
   {
+    "type": "response",
+    "url": "/",
+    "title": "tetramino information",
+    "name": "ExampleResponse",
+    "group": "API",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/ 200 OK\n{\n   \"type\": \"null\",\n   \"tetramino\":[],\n   \"board-info\": {\n     \"width\": 10,\n     \"hight\": 20\n   },\n   \"move\": {\n     \"down\": false,\n     \"right\": false,\n     \"left\": false\n   },\n   \"turn\": {\n     \"left\": false,\n     \"right\": false\n   },\n   \"tetramino-state\": [],\n   \"position-in-board\": {\n     \"values-to-zero\": {\n       \"position-one\": null,\n       \"position-two\": null,\n       \"position-three\": null,\n       \"position-four\": null\n     },\n     \"values-to-one\": {\n       \"position-one\": null,\n       \"position-two\": null,\n       \"position-three\": null,\n       \"position-four\": null\n     }\n   },\n   \"tetramino-periphery-positions\":{\n     \"down\":{\n       \"position-one\": null,\n       \"position-two\": null,\n       \"position-three\": null,\n       \"position-four\": null\n     },\n     \"left\":{\n       \"position-one\": null,\n       \"position-two\": null,\n       \"position-three\": null,\n       \"position-four\": null\n     },\n     \"right\":{\n       \"position-one\": null,\n       \"position-two\": null,\n       \"position-three\": null,\n       \"position-four\": null\n     },\n     \"turn\":{\n\n     }\n   }\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "App/index.js",
+    "groupTitle": "API"
+  },
+  {
     "type": "get",
     "url": "/decline/:values_down",
     "title": "Request decline tetramino",
