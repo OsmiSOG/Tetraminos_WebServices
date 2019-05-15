@@ -2,9 +2,9 @@
   "name": "tetraminos_webservices",
   "version": "1.0.0",
   "description": "Web service de figuras de tetramino",
-  "main": "index.js",
+  "main": "App/index.js",
   "scripts": {
-    "start":"nodemon index.js",
+    "start": "nodemon App/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,7 +19,8 @@
   "homepage": "https://github.com/OsmiSOG/Tetraminos_WebServices#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-session": "^1.15.6"
   },
   "devDependencies": {
     "jsdoc": "^3.5.5",
