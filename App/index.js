@@ -226,10 +226,10 @@ app.get('/displace/:direction/:values_direction', (req, res) => {
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
       apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiSquareTetramino.moveRight(Array.from(req.params.values_right.split(',')))
+        req.session.apiInfoTetramino = apiSquareTetramino.moveRight(Array.from(req.params.values_direction.split(',')))
         res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.apiInfoTetramino = apiSquareTetramino.moveLeft(Array.from(req.params.values_left.split(',')))
+        req.session.apiInfoTetramino = apiSquareTetramino.moveLeft(Array.from(req.params.values_direction.split(',')))
         res.send(req.session.apiInfoTetramino)
       }
     }

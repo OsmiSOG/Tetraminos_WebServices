@@ -36,10 +36,10 @@ class SquareTetramino extends Tetramino {
     this.infoSquareTetramino['current-movement'] = '1'
     this.infoTetramino['position-in-board']['values-to-zero'] = null
     this.infoTetramino['position-in-board']['values-to-one'] = {
-      'position-three': [-2, 4],
-      'position-four': [-2, 5],
-      'position-one': [-1, 4],
-      'position-two': [-1, 5]
+      'position-one': [-2, 4],
+      'position-two': [-2, 5],
+      'position-three': [-1, 4],
+      'position-four': [-1, 5]
     }
     this.infoTetramino['tetramino-periphery-positions']['rigth'] = null
     this.infoTetramino['tetramino-periphery-positions']['left'] = null
@@ -56,7 +56,7 @@ class SquareTetramino extends Tetramino {
    */
   turn () {
     this.infoTetramino['turn'] = true
-    this.infoTetramino['tetramino-periphery-positions']['turn'] = null
+    this.infoTetramino['tetramino-periphery-positions']['turn'] = true
     return this.infoTetramino
   }
 
@@ -76,9 +76,8 @@ class SquareTetramino extends Tetramino {
         break
       }
     }
-    console.log(zeros)
     if (zeros) {
-      if (this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] === 20 || this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 20) {
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] === (20 - 1) || this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === (20 - 1)) {
         this.infoTetramino['move']['down'] = false
       } else {
         if (this.infoSquareTetramino['current-movement'] === '1') {
@@ -112,7 +111,7 @@ class SquareTetramino extends Tetramino {
    * modify values for the new position of tetramino to move right
    * @return {json} json with information for api
    */
-  moveRigth (valuesPeripheryRight) {
+  moveRight (valuesPeripheryRight) {
     this.infoTetramino['move']['right'] = false
     this.infoTetramino['move']['left'] = false
     let zeros = false
@@ -124,9 +123,8 @@ class SquareTetramino extends Tetramino {
         break
       }
     }
-    console.log(zeros)
     if (zeros) {
-      if (this.infoTetramino['position-in-board']['values-to-one']['position-two'][0] === 10 || this.infoTetramino['position-in-board']['values-to-one']['position-four'][0] === 10) {
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-two'][1] === (10 - 1) || this.infoTetramino['position-in-board']['values-to-one']['position-four'][1] === (10 - 1)) {
         this.infoTetramino['move']['right'] = false
       } else {
         if (this.infoSquareTetramino['current-movement'] === '1') {
@@ -181,7 +179,7 @@ class SquareTetramino extends Tetramino {
       }
     }
     if (zeros) {
-      if (this.infoTetramino['position-in-board']['values-to-one']['position-one'][0] === 0 || this.infoTetramino['position-in-board']['values-to-one']['position-three'][0] === 0) {
+      if (this.infoTetramino['position-in-board']['values-to-one']['position-one'][1] === 0 || this.infoTetramino['position-in-board']['values-to-one']['position-three'][1] === 0) {
         this.infoTetramino['move']['left'] = false
       } else {
         if (this.infoSquareTetramino['current-movement'] === '1') {
