@@ -19,9 +19,68 @@ const apiElTetramino = new ElTetramino()
 const apiSquareTetramino = new SquareTetramino()
 
 /**
-* [apiElTetramino description]
-* @type {TetraminoL}
-*/
+ * @api {response} / tetramino information
+ * @apiName ExampleResponse
+ * @apiGroup API
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/ 200 OK
+ *     {
+ *        "type": "null",
+ *        "tetramino":[],
+ *        "board-info": {
+ *          "width": 10,
+ *          "hight": 20
+ *        },
+ *        "move": {
+ *          "down": false,
+ *          "right": false,
+ *          "left": false
+ *        },
+ *        "turn": {
+ *          "left": false,
+ *          "right": false
+ *        },
+ *        "tetramino-state": [],
+ *        "position-in-board": {
+ *          "values-to-zero": {
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "values-to-one": {
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          }
+ *        },
+ *        "tetramino-periphery-positions":{
+ *          "down":{
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "left":{
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "right":{
+ *            "position-one": null,
+ *            "position-two": null,
+ *            "position-three": null,
+ *            "position-four": null
+ *          },
+ *          "turn":{
+ *
+ *          }
+ *        }
+ *      }
+ */
 app.listen(port, () => {
   console.log(`Servidor creado con node js + express ${port}
     funcionando ${apiElTetramino.infoTetraminoL}
@@ -29,8 +88,32 @@ app.listen(port, () => {
 })
 
 /**
- * [message description]
- * @type {String}
+ * @api {get} /turn/:direction/:values Request turn tetramino
+ * @apiVersion 1.0.0
+ * @apiName GetTurnMain
+ * @apiGroup Turn
+ *
+ * @apiParam {String} direction The direction left or right | (or null if Square Tetramino).
+ * @apiParam {String} values The values in the position of turn 1=full 0=empty | (or null if Square Tetramino).
+ *
+ * @apiExample {js} Example usage:
+ *    http://host/turn/right/0,0,0
+ *
+ * @apiSuccess {Object} tetramino information.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/turn 200 OK
+ *     {
+ *        "infoTetramino": "..."
+ *     }
+ *
+ * @apiError uninitializedTetramino The tetramino has not been initialized.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/turn 500 Error
+ *     {
+ *        "error": "uninitialized tetramine"
+ *     }
  */
 app.get('/turn/:direction/:values_turn', (req, res) => {
   if (req.session.apiInfoTetramino) {
@@ -58,8 +141,33 @@ app.get('/turn/:direction/:values_turn', (req, res) => {
 })
 
 /**
- * [infoTetramino description]
- * @type {[type]}
+ * @api {get} /turn/ Request turn tetramino
+ * @apiVersion 1.0.0
+ * @apiName GetTurnSquare
+ * @apiGroup Turn
+ *
+ * @apiExample {js} Example usage:
+ *    http://host/turn/
+ *
+ * @apiSuccess {Object} tetramino information.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/turn/ 200 OK
+ *     {
+ *        infoTetramino: ...
+ *     }
+ *
+ * @apiError uninitializedTetramino The tetramino has not been initialized or use with tetramino l.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/ 500 Error
+ *     {
+ *        error: 'uninitialized tetramine'
+ *     }
+ *     HTTP/ 500 Error
+ *     {
+ *        error: 'No available for tetramino l'
+ *     }
  */
 app.get('/turn', (req, res) => {
   if (req.session.apiInfoTetramino) {
@@ -74,21 +182,45 @@ app.get('/turn', (req, res) => {
     res.status(500).send({ error: 'uninitialized tetramine' })
   }
 })
+
 /**
- * [direction description]
- * @type {[type]}
+ * @api {get} /displace/:direction/:values Request displace tetramino
+ * @apiVersion 1.0.0
+ * @apiName GetDisplace
+ * @apiGroup Displace
+ *
+ * @apiParam {String} direction The direction left or right.
+ * @apiParam {String} values The values to the left or right of the tetramine 1=full 0=empty.
+ *
+ * @apiExample {js} Example usage:
+ *    http://host/displace/left/0,1,0
+ *
+ * @apiSuccess {Object} tetramino information.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/displace/ 200 OK
+ *     {
+ *        infoTetramino: ...
+ *     }
+ * @apiError uninitializedTetramino The tetramino has not been initialized.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/500 Error
+ *     {
+ *        error: 'uninitialized tetramine'
+ *     }
  */
-app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
+app.get('/displace/:direction/:values_direction', (req, res) => {
   if (req.session.apiInfoTetramino) {
     if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
       apiElTetramino.infoTetramino = req.session.apiInfoTetramino
       apiElTetramino.lastState(req.session.lastStateTetraminoL)
       console.log(req.session.lastStateTetraminoL)
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiElTetramino.moveRight(Array.from(req.params.values_right.split(',')))
+        req.session.apiInfoTetramino = apiElTetramino.moveRight(Array.from(req.params.values_direction.split(',')))
         res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.apiInfoTetramino = apiElTetramino.moveLeft(Array.from(req.params.values_left.split(',')))
+        req.session.apiInfoTetramino = apiElTetramino.moveLeft(Array.from(req.params.values_direction.split(',')))
         res.send(req.session.apiInfoTetramino)
       } else { res.status(500).send({ error: 'parameters incorrects' }) }
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
@@ -107,11 +239,31 @@ app.get('/displace/:direction/:values_left/:values_right', (req, res) => {
 })
 
 /**
- * [message description]
- * @param {String} req
- * @param {json} res
- * @type {String}
- * @return {json} res
+ * @api {get} /decline/:values_down Request decline tetramino
+ * @apiVersion 1.0.0
+ * @apiName GetDecline
+ * @apiGroup Decline
+ *
+ * @apiParam {String} values_down The values below the tetramine 1=full 0=empty.
+ *
+ * @apiExample {js} Example usage:
+ *    http://host/decline/1,1
+ *
+ * @apiSuccess {Object} tetramino information.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/decline 200 OK
+ *     {
+ *        infoTetramino: ...
+ *     }
+ *
+ * @apiError uninitializedTetramino The tetramino has not been initialized.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/ 500 Error
+ *     {
+ *        error: 'uninitialized tetramine'
+ *     }
  */
 app.get('/decline/:values_down', (req, res) => {
   setTimeout((req, res) => {
@@ -132,14 +284,30 @@ app.get('/decline/:values_down', (req, res) => {
   }, 1000, req, res)
 })
 
-app.get('/prueba/:values', (req, res) => {
-  console.log(req.params.values.split(','))
-  apiElTetramino.lastState(Array.from(req.params.values.split(',')))
-  res.send()
-})
 /**
- * [message description]
- * @type {String}
+ * @api {get} /newTetramino Request new tetramino
+ * @apiVersion 1.0.0
+ * @apiName GetNewTetramino
+ * @apiGroup New
+ *
+ * @apiExample {js} Example usage:
+ *    http://host/newTetramino
+ *
+ * @apiSuccess {Object} tetramino information.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/newTetramino 200 OK
+ *     {
+ *        infoTetramino: ...
+ *     }
+ *
+ * @apiError uninitializedTetramino The tetramino has not been initialized.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/ 500 Error
+ *     {
+ *        error: 'uninitialized tetramine'
+ *     }
  */
 app.get('/newTetramino', (req, res) => {
   let tetramino = Math.floor(Math.random() * (2 - 0)) + 0
