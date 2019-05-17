@@ -119,14 +119,15 @@ app.get('/turn/:direction/:values_turn', (req, res) => {
   if (req.session.apiInfoTetramino) {
     if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
       apiElTetramino.infoTetramino = req.session.apiInfoTetramino
+      console.log(req.session.lastStateTetraminoL);
       apiElTetramino.lastState(req.session.lastStateTetraminoL)
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiElTetramino.turnRight(req.params.values_turn)
+        req.session.apiInfoTetramino = apiElTetramino.turnRight(Array.from(req.params.values_turn.split(',')))
         req.session.lastStateTetraminoL = apiElTetramino.infoTetraminoL['current-movement']
         res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.infoTetramino = apiElTetramino.turnLeft(req.params.values_turn)
-        req.session.infoTetraminoL = apiElTetramino.infoTetraminoL['current-movement']
+        req.session.infoTetramino = apiElTetramino.turnLeft(Array.from(req.params.values_turn.split(',')))
+        req.session.lastStateTetraminoL = apiElTetramino.infoTetraminoL['current-movement']
         res.send(req.session.infoTetramino)
       }
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
@@ -225,10 +226,10 @@ app.get('/displace/:direction/:values_direction', (req, res) => {
     } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
       apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
       if (req.params.direction === 'right') {
-        req.session.apiInfoTetramino = apiSquareTetramino.moveRight(req.params.values_direction)
+        req.session.apiInfoTetramino = apiSquareTetramino.moveRight(Array.from(req.params.values_right.split(',')))
         res.send(req.session.apiInfoTetramino)
       } else if (req.params.direction === 'left') {
-        req.session.apiInfoTetramino = apiSquareTetramino.moveLeft(req.params.values_direction)
+        req.session.apiInfoTetramino = apiSquareTetramino.moveLeft(Array.from(req.params.values_left.split(',')))
         res.send(req.session.apiInfoTetramino)
       }
     }
@@ -270,11 +271,11 @@ app.get('/decline/:values_down', (req, res) => {
       if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
         apiElTetramino.infoTetramino = req.session.apiInfoTetramino
         apiElTetramino.lastState(req.session.lastStateTetraminoL)
-        req.session.apiInfoTetramino = apiElTetramino.decline(req.params.values_down)
+        req.session.apiInfoTetramino = apiElTetramino.decline(Array.from(req.params.values_down.split(',')))
         res.send(req.session.apiInfoTetramino)
       } else if (req.session.apiInfoTetramino['type'] === 'Square tetramino') {
         apiSquareTetramino.infoTetramino = req.session.apiInfoTetramino
-        req.session.apiInfoTetramino = apiSquareTetramino.decline(req.params.values_down)
+        req.session.apiInfoTetramino = apiSquareTetramino.decline(Array.from(req.params.values_down.split(',')))
         res.send(req.session.apiInfoTetramino)
       }
     } else {
