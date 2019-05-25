@@ -20,7 +20,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/decline/:values_down",
+    "url": "/decline/:seconds/:values_down",
     "title": "Request decline tetramino",
     "version": "1.0.0",
     "name": "GetDecline",
@@ -28,6 +28,13 @@ define({ "api": [
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "seconds",
+            "description": "<p>The seconds wait in decline tetramine</p>"
+          },
           {
             "group": "Parameter",
             "type": "String",
@@ -41,7 +48,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "http://host/decline/1,1",
+        "content": "http://host/decline/5/1,1",
         "type": "js"
       }
     ],

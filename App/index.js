@@ -239,15 +239,16 @@ app.get('/displace/:direction/:values_direction', (req, res) => {
 })
 
 /**
- * @api {get} /decline/:values_down Request decline tetramino
+ * @api {get} /decline/:seconds/:values_down Request decline tetramino
  * @apiVersion 1.0.0
  * @apiName GetDecline
  * @apiGroup Decline
  *
+ * @apiParam {Integer} seconds The seconds wait in decline tetramine
  * @apiParam {String} values_down The values below the tetramine 1=full 0=empty.
  *
  * @apiExample {js} Example usage:
- *    http://host/decline/1,1
+ *    http://host/decline/5/1,1
  *
  * @apiSuccess {Object} tetramino information.
  *
@@ -265,7 +266,7 @@ app.get('/displace/:direction/:values_direction', (req, res) => {
  *        error: 'uninitialized tetramine'
  *     }
  */
-app.get('/decline/:values_down', (req, res) => {
+app.get('/decline/:seconds/:values_down', (req, res) => {
   setTimeout((req, res) => {
     if (req.session.apiInfoTetramino) {
       if (req.session.apiInfoTetramino['type'] === 'tetramino L') {
@@ -281,7 +282,7 @@ app.get('/decline/:values_down', (req, res) => {
     } else {
       res.status(500).send({ error: 'uninitialized tetramine' })
     }
-  }, 1000, req, res)
+  }, (req.params.seconds*1000), req, res)
 })
 
 /**
