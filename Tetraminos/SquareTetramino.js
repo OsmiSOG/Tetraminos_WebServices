@@ -41,8 +41,9 @@ class SquareTetramino extends Tetramino {
       'position-three': [-1, 4],
       'position-four': [-1, 5]
     }
-    this.infoTetramino['tetramino-periphery-positions']['rigth'] = null
+    this.infoTetramino['tetramino-periphery-positions']['right'] = null
     this.infoTetramino['tetramino-periphery-positions']['left'] = null
+    this.infoTetramino['tetramino-periphery-positions']['turn'] = null
     this.infoTetramino['tetramino-periphery-positions']['down'] = {
       'position-one': [4, 0],
       'position-two': [4, 0]
